@@ -237,11 +237,11 @@ def play_game(selected_game,username):
     elif selected_game=='Breakout':
         b.Breakout(username)
         screen=pygame.display.set_mode((width,height))
-    elif selected_game=='Space_Invaders':
+    elif selected_game=='Space Invaders':
         si.space_invaders(username)
         screen=pygame.display.set_mode((width,height))
     elif selected_game=='Jumpy':
-        j.Jumpy(username)
+        j.jumpy(username)
         screen=pygame.display.set_mode((width,height))
         
 def draw_button(x,y,width,height,image_path):
