@@ -169,11 +169,17 @@ while run:
             platformgrp.empty()
             p=Platform(150,580,100,False)
             platformgrp.add(p)
+            if scr>=highscore:
+                highscore=scr
+                hs=highscore*10
+
     #event
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
             run=0
-
+            if scr>=highscore:
+                highscore=scr
+                hs=highscore*10
 
 
     pygame.time.Clock().tick(80)
