@@ -63,7 +63,7 @@ def login_screen():
                     if event.key==pygame.K_RETURN:
                         if password=='pass':#sql
                             print('Login Successful')
-                            game_selection_screen()
+                            game_selection_screen(username)
                         else:
                             print('Incorrect password. Try again')
                             password=''
@@ -147,7 +147,7 @@ def sign_up_screen():
 
         pygame.display.flip()
 
-def game_selection_screen():
+def game_selection_screen(username):
     global selected_game
     while True:
         for event in pygame.event.get():
@@ -156,58 +156,65 @@ def game_selection_screen():
                 sys.exit()
             elif event.type==pygame.MOUSEBUTTONDOWN:
                 x,y=pygame.mouse.get_pos()
-                if 50<x<600 and 225<y<275:
+                print(x,y)
+                if 210<x<390 and 250<y<295:
                     selected_game='Flappy Bird'
-                    play_game(selected_game)
-                elif 50<x<600 and 325<y<375:
+                    play_game(selected_game,username)
+                elif 210<x<390 and 400<y<450:
                     selected_game='Tetris'
-                    play_game(selected_game)
-                elif 50<x<600 and 425<y<475:
+                    print('Tetris')
+                    #play_game(selected_game,username)
+                elif 215<x<390 and 550<y<595:
                     selected_game='Snake'
-                    play_game(selected_game)
-                elif 600<x<825 and 225<y<275:
+                    print('Snake')
+                    play_game(selected_game,username)
+                elif 515<x<690 and 255<y<290:
                     selected_game='Breakout'
-                    play_game(selected_game)
-                elif 600<x<825 and 325<y<375:
+                    print('breakout')
+                    play_game(selected_game,username)
+                elif 520<x<690 and 400<y<445:
                     selected_game='Space Invaders'
-                    play_game(selected_game)
-                elif 600<x<825 and 425<y<475:
+                    print('Space Invaders')
+                    play_game(selected_game,username)
+                elif 515<x<690 and 555<y<595:
                     selected_game='Jumpy'
-                    play_game(selected_game)
-                if 675<x<810 and 810<y<855:
+                    print('Jumpy')
+                    play_game(selected_game,username)
+                if 375<x<425 and 660<y<700:
                     login_screen()
-                    
+                   
         screen.blit(bg_image2,(0,0))
-        display_text('Choose a Game','white',450,100)
+        display_text('Choose a Game','white',315,100)
 
-        draw_button(150,225,500,150,'Game_button/flappy_button.png')
-        draw_button(150,325,450,100,'Game_button/tetris_button.png')
-        draw_button(150,425,450,100,'Game_button/snake_button.png')
-        draw_button(825,225,450,100,'Game_button/breakout_button.png')
-        draw_button(825,325,450,100,'Game_button/space invaders_button.png')
-        draw_button(825,425,450,100,'Game_button/jumpy_button.png')
+        draw_button(150,150,300,250,'Game_button/flappy_button.png')
+        draw_button(150,300,300,250,'Game_button/tetris_button.png')
+        draw_button(150,450,300,250,'Game_button/snake_button.png')
+        draw_button(450,150,300,250,'Game_button/breakout_button.png')
+        draw_button(450,300,300,250,'Game_button/space invaders_button.png')
+        draw_button(450,450,300,250,'Game_button/jumpy_button.png')
 
-        display_text('Log out','red',675,810)
+        display_text('Log out','red',375,660)
 
         pygame.display.flip()
     
-def play_game(selected_game):
+def play_game(selected_game,username):
     if selected_game=='Flappy Bird':
-        f.flappy_bird()
+        f.flappy_bird(username)
+        screen=pygame.display.set_mode((width,height))
     elif selected_game=='Tetris':
         pass
     elif selected_game=='Snake':
-        pygame.display.quit()
-        s.Snake()
+        s.Snake(username)
+        screen=pygame.display.set_mode((width,height))
     elif selected_game=='Breakout':
-        pygame.display.quit()
-        b.Breakout()
+        b.Breakout(username)
+        screen=pygame.display.set_mode((width,height))
     elif selected_game=='Space_Invaders':
-        pygame.display.quit()
-        si.space_invaders()
+        si.space_invaders(username)
+        screen=pygame.display.set_mode((width,height))
     elif selected_game=='Jumpy':
-        pygame.display.quit()
-        j.Jumpy()
+        j.Jumpy(username)
+        screen=pygame.display.set_mode((width,height))
         
 def draw_button(x,y,width,height,image_path):
     button_image=pygame.image.load(image_path)
