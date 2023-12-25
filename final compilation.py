@@ -7,7 +7,7 @@ import Space_Invaders as si
 import Snake_final as s
 import breakout as b
 import mysql.connector as m
-db=m.connect(host='localhost',user='root',passwd='aaaa')
+db=m.connect(host='localhost', user='root',passwd='vikas@19')
 cursor=db.cursor()
 cursor.execute('use game')
 cursor.execute('create table if not exists arcade(user varchar(50) primary key,password varchar(50),space int,flappy int,jumpy int,breakout int,snake int)')
@@ -33,20 +33,20 @@ font2=pygame.font.SysFont('Georgia',20)
 
 selected_game=None
 def userpassword():
-    db=m.connect(host='localhost',user='root',passwd='aaaa')
+    db=m.connect(host='localhost',user='root',passwd='vikas@19')
     cursor=db.cursor()
     cursor.execute('use game')
     d={}
-    c.execute("select user,password from arcade")
-    for k in c.fetchall():
+    cursor.execute("select user,password from arcade")
+    for k in cursor.fetchall():
         d[k[0]]=k[1]
     db.close()
     return d
 def insertuser(user,password):
-    db=m.connect(host='localhost',user='root',passwd='aaaa')
+    db=m.connect(host='localhost',user='root',passwd='vikas@19')
     cursor=db.cursor()
     cursor.execute('use game')
-    cursor.execute('insert into arcade(user,password) values(%s,%s)',(username,password))
+    cursor.execute('insert into arcade(user,password) values(%s,%s)',(user,password))
     db.commit()
     db.close()
 def login_screen():
@@ -75,7 +75,7 @@ def login_screen():
             elif event.type==pygame.KEYDOWN:
                 if input_active=='username':
                     if event.key==pygame.K_RETURN:
-                        if username not in d:
+                        if username not in dict:
                             print('Invalid username')
                             username=''
                         else:
@@ -86,12 +86,16 @@ def login_screen():
                         username+=event.unicode
                 elif input_active=='password':
                     if event.key==pygame.K_RETURN:
-                        if password==dict[username]:#sql
-                            print('Login Successful')
-                            game_selection_screen(username)
-                        else:
-                            print('Incorrect password. Try again')
-                            password=''
+                        try:
+                            if password==dict[username]:#sql
+                                print('Login Successful')
+                                game_selection_screen(username)
+                            else:
+                                print('Incorrect password. Try again')
+                                password=''
+                        except KeyError:
+                            print('Username does not exist')
+                            username=''
                     elif event.key==pygame.K_BACKSPACE:
                         password=password[:-1]
                     else:
@@ -181,7 +185,6 @@ def game_selection_screen(username):
                 sys.exit()
             elif event.type==pygame.MOUSEBUTTONDOWN:
                 x,y=pygame.mouse.get_pos()
-                print(x,y)
                 if 210<x<390 and 250<y<295:
                     selected_game='Flappy Bird'
                     play_game(selected_game,username)
