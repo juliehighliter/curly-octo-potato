@@ -208,8 +208,8 @@ def space_invaders():
 
     def restart_game():
         #defining restart conditions
-        global countdown
-        global game_over
+        nonlocal countdown
+        nonlocal game_over
         for k in alien_group:
             k.kill()
         generate_aliens()
@@ -294,4 +294,4 @@ def space_invaders():
 
 
     pygame.quit()
-        
+
