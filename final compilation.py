@@ -14,16 +14,16 @@ cursor.execute('create table if not exists arcade(user varchar(50) primary key,p
 db.close()
 pygame.init()
 
-width=900
-height=900
+width=630
+height=630
 screen=pygame.display.set_mode((width,height))
 pygame.display.set_caption('Gamu Arcade')
 
 bg_image1=pygame.image.load('main bg.png')
-bg_image1=pygame.transform.scale(bg_image1, (900,900))
+bg_image1=pygame.transform.scale(bg_image1, (630,630))
 
 bg_image2=pygame.image.load('Untitled design.png')
-bg_image2=pygame.transform.scale(bg_image2, (900,900))
+bg_image2=pygame.transform.scale(bg_image2, (630,630))
 
 black=(0,0,0)
 white=(255,255,255)
@@ -62,11 +62,11 @@ def login_screen():
                 sys.exit()
             elif event.type==pygame.MOUSEBUTTONDOWN:
                 x,y=pygame.mouse.get_pos()
-                if 280<x<620 and 280<y<330:
+                if 240<x<580 and 280<y<330:
                     input_active='username'
-                elif 280<x<620 and 360<y<400:
+                elif 240<x<580 and 360<y<400:
                     input_active='password'
-                elif 525<x<825 and 810<y<855: #log out
+                elif 305<x<570 and 495<y<520: #log out
                     input_active=None
                     selected_game=None
                     return
@@ -103,17 +103,19 @@ def login_screen():
                         
             screen.blit(bg_image2,(0,0))
 
-            display_text('Username:', 'white', 90, 295)
-            display_text('Password:', 'white', 90, 375)
+            display_text('Username:', 'white', 50, 295)
+            display_text('Password:', 'white', 50, 375)
 
-            pygame.draw.rect(screen, black, (280, 280, 340, 50))
+            pygame.draw.rect(screen, black, (240, 280, 340, 50))
             username_surface = font2.render(username, True, white)
-            screen.blit(username_surface, (280, 290))
+            screen.blit(username_surface, (240, 290))
 
             # Render and draw the password text
-            pygame.draw.rect(screen, black, (280, 360, 340, 50))
+            pygame.draw.rect(screen, black, (240, 360, 340, 50))
             password_surface = font2.render('*' * len(password), True, white)
-            screen.blit(password_surface, (280, 375))
+            screen.blit(password_surface, (240, 375))
+
+            display_text('Back to Login', 'red', 310, 500)
 
             pygame.display.flip()
 
@@ -129,18 +131,18 @@ def sign_up_screen():
                 sys.exit()
             elif event.type==pygame.MOUSEBUTTONDOWN:
                 x, y=pygame.mouse.get_pos()
-                if 350< x <500 and 450< y <500:
+                if 350< x <500 and 430< y <460:
                     if new_username and new_password and new_username not in dict:
                         insertuser(new_username,new_password)                     
                         login_screen()
-                elif 700<x<825 and 810<y<855:  # Back to login
+                elif 305<x<570 and 495<y<520:  # Back to login
                     input_active=None
                     return
                 else:
                     input_active=None
-                if 280<x<620 and 280<y<330:
+                if 240<x<580 and 280<y<330:
                     input_active = 'new_username'
-                elif 280<x<620 and 360<y<400 :
+                elif 240<x<580 and 360<y<400 :
                     input_active = 'new_password'
             elif event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_RETURN:
@@ -160,19 +162,19 @@ def sign_up_screen():
 
         screen.blit(bg_image2, (0, 0))
 
-        pygame.draw.rect(screen, black, (280, 280, 340, 50))
+        pygame.draw.rect(screen, black, (240, 280, 340, 50))
         new_username_surface = font2.render(new_username, True, white)
-        screen.blit(new_username_surface, (280, 290))
+        screen.blit(new_username_surface, (240, 290))
 
-        pygame.draw.rect(screen, black, (280, 360, 340, 50))
+        pygame.draw.rect(screen, black, (240, 360, 340, 50))
         new_password_surface = font2.render('*' * len(new_password), True, white)
-        screen.blit(new_password_surface, (280, 370))
+        screen.blit(new_password_surface, (240, 370))
 
-        display_text('Username:', 'white', 90, 295)
-        display_text('Password:', 'white', 90, 375)
+        display_text('Username:', 'white', 50, 295)
+        display_text('Password:', 'white', 50, 375)
 
-        draw_button(350, 400, 200, 150, 'sign_up_button.png')  # Sign-up button
-        display_text('Back to Login', 'red', 525, 810)  # Back to login button
+        draw_button(350, 370, 200, 150, 'sign_up_button.png')  # Sign-up button
+        display_text('Back to Login', 'red', 310, 500)
 
         pygame.display.flip()
 
@@ -185,41 +187,36 @@ def game_selection_screen(username):
                 sys.exit()
             elif event.type==pygame.MOUSEBUTTONDOWN:
                 x,y=pygame.mouse.get_pos()
-                if 210<x<390 and 250<y<295:
+                if 80<x<250 and 190<y<230:
                     selected_game='Flappy Bird'
                     play_game(selected_game,username)
-                elif 210<x<390 and 400<y<450:
+                elif 80<x<250 and 340<y<380:
                     selected_game='Tetris'
-                    print('Tetris')
                     #play_game(selected_game,username)
-                elif 215<x<390 and 550<y<595:
+                elif 80<x<255 and 490<y<530:
                     selected_game='Snake'
-                    print('Snake')
                     play_game(selected_game,username)
-                elif 515<x<690 and 255<y<290:
+                elif 380<x<555 and 190<y<230:
                     selected_game='Breakout'
-                    print('breakout')
                     play_game(selected_game,username)
-                elif 520<x<690 and 400<y<445:
+                elif 380<x<555 and 345<y<385:
                     selected_game='Space Invaders'
-                    print('Space Invaders')
                     play_game(selected_game,username)
-                elif 515<x<690 and 555<y<595:
+                elif 380<x<555 and 495<y<530:
                     selected_game='Jumpy'
-                    print('Jumpy')
                     play_game(selected_game,username)
                 if 375<x<425 and 660<y<700:
                     login_screen()
                    
         screen.blit(bg_image2,(0,0))
-        display_text('Choose a Game','white',315,100)
+        display_text('Choose a Game','white',190,100)
 
-        draw_button(150,150,300,250,'Game_button/flappy_button.png')
-        draw_button(150,300,300,250,'Game_button/tetris_button.png')
-        draw_button(150,450,300,250,'Game_button/snake_button.png')
-        draw_button(450,150,300,250,'Game_button/breakout_button.png')
-        draw_button(450,300,300,250,'Game_button/space invaders_button.png')
-        draw_button(450,450,300,250,'Game_button/jumpy_button.png')
+        draw_button(20,90,300,250,'Game_button/flappy_button.png')
+        draw_button(20,240,300,250,'Game_button/tetris_button.png')
+        draw_button(20,390,300,250,'Game_button/snake_button.png')
+        draw_button(320,90,300,250,'Game_button/breakout_button.png')
+        draw_button(320,240,300,250,'Game_button/space invaders_button.png')
+        draw_button(320,390,300,250,'Game_button/jumpy_button.png')
 
         display_text('Log out','red',375,660)
 
@@ -261,15 +258,15 @@ def start_screen():
                 sys.exit()
             elif event.type==pygame.MOUSEBUTTONDOWN:
                 x,y=pygame.mouse.get_pos()
-                if 275<x<420 and 290<y<325:
+                if 164<x<308 and 200<y<230:
                     login_screen()
-                elif 450<x<600 and 290<y<325:
+                elif 333<x<480 and 200<y<235:
                     sign_up_screen()
 
         screen.blit(bg_image1,(0,0))
-        display_text('Welcome to Gamu Arcade','white',220,270)
-        draw_button(220,210,250,200,'login_button.png')
-        draw_button(400, 210, 250, 200, 'sign_up_button.png')  # Sign-up button
+        display_text('Welcome to Gamu Arcade','white',120,179)
+        draw_button(110,120,250,200,'login_button.png')
+        draw_button(280,120, 250, 200, 'sign_up_button.png')  # Sign-up button
 
 
         pygame.display.flip()
