@@ -1293,7 +1293,7 @@ def sign_up_screen():
                         login_screen()
                 elif 305<x<570 and 495<y<520:  # Back to login
                     input_active=None
-                    return
+                    start_screen()
                 else:
                     input_active=None
                 if 240<x<580 and 280<y<330:
